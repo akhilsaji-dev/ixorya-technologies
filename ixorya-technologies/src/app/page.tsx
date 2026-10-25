@@ -4,6 +4,7 @@ import { courses } from "@/data/courses";
 import { site } from "@/lib/site";
 import HeroShowcase from "@/components/home/HeroShowcase";
 import SolutionMatcher from "@/components/home/SolutionMatcher";
+import ContactForm from "@/components/contact/ContactForm";
 import {
   Code2,
   Globe,
@@ -24,6 +25,9 @@ import {
   Cpu,
   Monitor,
   Lightbulb,
+  Mail,
+  Phone,
+  Clock,
   type LucideIcon,
 } from "lucide-react";
 
@@ -666,47 +670,88 @@ export default function Home() {
 
 
       {/* =========================================================================
-          FINAL HIGH-CONVERSION CTA BANNER
+          ENHANCED CONTACT & CONSULTATION SECTION
          ========================================================================= */}
-      <section className="relative overflow-hidden py-20">
-        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="relative overflow-hidden rounded-3xl border border-cyan/30 bg-gradient-to-r from-blue-900/40 via-dark to-navy p-8 sm:p-14 text-center shadow-2xl backdrop-blur-xl">
-            {/* Ambient background blur */}
-            <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-cyan-500/20 blur-3xl" />
-            <div className="pointer-events-none absolute -left-20 -bottom-20 h-64 w-64 rounded-full bg-blue-600/20 blur-3xl" />
+      <section id="contact-section" className="relative overflow-hidden py-20 border-t border-white/10 bg-grid-pattern">
+        {/* Ambient background glow */}
+        <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[500px] w-[800px] rounded-full bg-blue-600/15 blur-[140px] -z-10" />
 
-            <div className="relative z-10 max-w-3xl mx-auto space-y-6">
-              <div className="inline-flex items-center gap-2 rounded-full border border-cyan/30 bg-cyan/10 px-3.5 py-1 text-xs font-semibold text-cyan">
-                <Rocket className="h-3.5 w-3.5" />
-                <span>Let&apos;s Build the Future Together</span>
+        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid gap-12 lg:grid-cols-12 lg:items-center">
+            {/* Left Column: Context & Direct Contact Details */}
+            <div className="lg:col-span-5 space-y-6">
+              <div className="inline-flex items-center gap-2 rounded-full border border-cyan/30 bg-cyan/10 px-3.5 py-1.5 text-xs font-semibold text-cyan">
+                <Rocket className="h-3.5 w-3.5 text-cyan" />
+                <span>Let&apos;s Build Together</span>
               </div>
 
-              <h2 className="text-3xl font-extrabold text-white sm:text-4xl lg:text-5xl tracking-tight leading-tight">
-                Ready to Accelerate Your Business or Learn to Code?
+              <h2 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl lg:text-5xl leading-tight">
+                Ready to Accelerate Your Digital Future?
               </h2>
 
-              <p className="text-muted text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+              <p className="text-muted text-base leading-relaxed">
                 Whether you need high-impact software, scalable AI workflow automation, or want to master programming from the ground up, {site.name} is your partner from zero to beyond infinity.
               </p>
 
-              <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
-                <Link href="/contact" className={btnPrimary}>
-                  <span>Schedule Consultation</span>
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-                <Link href="/academy/courses" className={btnSecondary}>
-                  <GraduationCap className="h-4 w-4" />
-                  <span>Explore Courses</span>
-                </Link>
-                {site.email && (
-                  <a
-                    href={`mailto:${site.email}`}
-                    className="inline-flex items-center gap-1.5 text-xs text-silver/80 hover:text-cyan transition px-3 py-2"
-                  >
-                    <span>Direct: {site.email}</span>
-                  </a>
-                )}
+              {/* Direct Reach-Out Cards */}
+              <div className="space-y-3 pt-2">
+                <a
+                  href={`mailto:${site.email}`}
+                  className="flex items-center gap-4 rounded-xl border border-white/10 bg-dark/70 p-4 transition hover:border-cyan/40 hover:bg-dark group"
+                >
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-navy border border-white/10 text-cyan group-hover:border-cyan/30">
+                    <Mail className="h-5 w-5" />
+                  </div>
+                  <div className="overflow-hidden">
+                    <div className="text-xs text-muted">Email Us Directly</div>
+                    <div className="text-sm font-semibold text-silver group-hover:text-cyan transition truncate">
+                      {site.email}
+                    </div>
+                  </div>
+                </a>
+
+                <a
+                  href={`tel:${site.phone.replace(/\s+/g, "")}`}
+                  className="flex items-center gap-4 rounded-xl border border-white/10 bg-dark/70 p-4 transition hover:border-cyan/40 hover:bg-dark group"
+                >
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-navy border border-white/10 text-cyan group-hover:border-cyan/30">
+                    <Phone className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <div className="text-xs text-muted">Phone / WhatsApp</div>
+                    <div className="text-sm font-semibold text-silver group-hover:text-cyan transition">
+                      {site.phone}
+                    </div>
+                  </div>
+                </a>
+
+                <div className="flex items-center gap-4 rounded-xl border border-white/10 bg-dark/70 p-4">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-navy border border-white/10 text-cyan">
+                    <Clock className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <div className="text-xs text-muted">Rapid Turnaround</div>
+                    <div className="text-sm font-semibold text-silver">
+                      Responses within 24 hours · Technical guidance
+                    </div>
+                  </div>
+                </div>
               </div>
+
+              <div className="pt-2 flex flex-wrap gap-3">
+                <Link href="/services" className={btnSecondary}>
+                  <span>Explore Services</span>
+                </Link>
+                <Link href="/academy/courses" className={btnAccent}>
+                  <GraduationCap className="h-4 w-4" />
+                  <span>View Courses</span>
+                </Link>
+              </div>
+            </div>
+
+            {/* Right Column: Embedded Interactive Contact Form */}
+            <div className="lg:col-span-7">
+              <ContactForm />
             </div>
           </div>
         </div>
