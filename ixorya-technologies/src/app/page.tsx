@@ -4,7 +4,6 @@ import { courses } from "@/data/courses";
 import { site } from "@/lib/site";
 import HeroShowcase from "@/components/home/HeroShowcase";
 import SolutionMatcher from "@/components/home/SolutionMatcher";
-import FaqSection from "@/components/home/FaqSection";
 import {
   Code2,
   Globe,
@@ -20,7 +19,6 @@ import {
   Users,
   Workflow,
   Star,
-  BookOpen,
   ArrowUpRight,
   Terminal,
   Cpu,
@@ -665,27 +663,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* =========================================================================
-          INTERACTIVE FAQS
-         ========================================================================= */}
-      <section className="border-t border-white/10 bg-dark/50 py-20">
-        <div className="mx-auto w-full max-w-4xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-cyan">
-              <BookOpen className="h-4 w-4" />
-              <span>Clear Answers</span>
-            </div>
-            <h2 className="mt-2 text-3xl font-bold tracking-tight text-silver sm:text-4xl">
-              Frequently Asked Questions
-            </h2>
-            <p className="mt-3 text-muted text-sm sm:text-base">
-              Got questions about our software development services or academy courses? We have answers.
-            </p>
-          </div>
 
-          <FaqSection />
-        </div>
-      </section>
 
       {/* =========================================================================
           FINAL HIGH-CONVERSION CTA BANNER
