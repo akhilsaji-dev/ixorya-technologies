@@ -12,11 +12,17 @@ const categories = [
   "General Consultation",
 ];
 
-export default function ContactForm({ className = "" }: { className?: string }) {
+export default function ContactForm({
+  className = "",
+  initialCategory,
+}: {
+  className?: string;
+  initialCategory?: string;
+}) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [category, setCategory] = useState("Custom Software");
+  const [category, setCategory] = useState(initialCategory || "Custom Software");
   const [message, setMessage] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
