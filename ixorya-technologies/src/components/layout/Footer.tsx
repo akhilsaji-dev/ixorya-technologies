@@ -2,17 +2,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 import { connection } from "next/server";
-import { siteConfig, getWhatsAppUrl, getTelUrl, getMailtoUrl } from "@/config/site";
+import { siteConfig, getWhatsAppUrl, getMailtoUrl } from "@/config/site";
 import NewsletterForm from "./NewsletterForm";
 import { 
   Mail, 
-  Phone, 
   ArrowUpRight, 
   Sparkles,
   MessageCircle,
   ArrowRight
 } from "lucide-react";
-import { GithubIcon, LinkedinIcon, TwitterIcon, InstagramIcon, WhatsAppIcon } from "./SocialIcons";
+import { InstagramIcon, WhatsAppIcon } from "./SocialIcons";
 
 async function Year() {
   await connection();
@@ -21,11 +20,7 @@ async function Year() {
 
 export default function Footer() {
   const mailtoUrl = getMailtoUrl();
-  const telUrl = getTelUrl();
   const whatsAppUrl = getWhatsAppUrl();
-
-  const hasAnyContactMethod =
-    siteConfig.hasContactEmail || siteConfig.hasPhone || siteConfig.hasWhatsApp;
 
   return (
     <footer className="border-t border-white/10 bg-dark text-silver">
@@ -62,7 +57,7 @@ export default function Footer() {
               <span>Available for new projects & admissions</span>
             </div>
 
-            {/* Social links (Only show Instagram if configured, along with standard channels) */}
+            {/* Social / Direct Connect (Only Instagram, WhatsApp, and Mail) */}
             <div className="flex items-center gap-3 pt-2">
               {siteConfig.hasInstagram && siteConfig.instagramUrl && (
                 <a
@@ -70,7 +65,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noreferrer"
                   aria-label="Instagram"
-                  className="rounded-lg border border-white/10 bg-navy/80 p-2 text-muted transition hover:border-cyan hover:text-white"
+                  className="rounded-lg border border-white/10 bg-navy/80 p-2 text-muted transition hover:border-pink-500 hover:text-pink-400"
                 >
                   <InstagramIcon className="h-4 w-4" />
                 </a>
@@ -86,33 +81,15 @@ export default function Footer() {
                   <WhatsAppIcon className="h-4 w-4" />
                 </a>
               )}
-              <a
-                href="https://github.com"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="GitHub"
-                className="rounded-lg border border-white/10 bg-navy/80 p-2 text-muted transition hover:border-cyan hover:text-white"
-              >
-                <GithubIcon className="h-4 w-4" />
-              </a>
-              <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="LinkedIn"
-                className="rounded-lg border border-white/10 bg-navy/80 p-2 text-muted transition hover:border-cyan hover:text-white"
-              >
-                <LinkedinIcon className="h-4 w-4" />
-              </a>
-              <a
-                href="https://x.com"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Twitter / X"
-                className="rounded-lg border border-white/10 bg-navy/80 p-2 text-muted transition hover:border-cyan hover:text-white"
-              >
-                <TwitterIcon className="h-4 w-4" />
-              </a>
+              {siteConfig.hasContactEmail && mailtoUrl && (
+                <a
+                  href={mailtoUrl}
+                  aria-label="Email"
+                  className="rounded-lg border border-white/10 bg-navy/80 p-2 text-muted transition hover:border-cyan hover:text-cyan"
+                >
+                  <Mail className="h-4 w-4" />
+                </a>
+              )}
             </div>
           </div>
 
@@ -191,22 +168,13 @@ export default function Footer() {
               Connect With Us
             </h3>
 
-            {/* Direct Contact Links (Hidden when values are missing) */}
+            {/* Direct Contact Links: Only Email, WhatsApp, and Instagram */}
             <div className="space-y-2.5 text-xs text-muted">
               {siteConfig.hasContactEmail && mailtoUrl && (
                 <div className="flex items-center gap-2.5">
                   <Mail className="h-3.5 w-3.5 text-cyan shrink-0" />
                   <a href={mailtoUrl} className="hover:text-cyan transition truncate">
                     {siteConfig.contactEmail}
-                  </a>
-                </div>
-              )}
-
-              {siteConfig.hasPhone && telUrl && (
-                <div className="flex items-center gap-2.5">
-                  <Phone className="h-3.5 w-3.5 text-cyan shrink-0" />
-                  <a href={telUrl} className="hover:text-cyan transition">
-                    {siteConfig.phone}
                   </a>
                 </div>
               )}
@@ -225,6 +193,20 @@ export default function Footer() {
                 </div>
               )}
 
+              {siteConfig.hasInstagram && siteConfig.instagramUrl && (
+                <div className="flex items-center gap-2.5">
+                  <InstagramIcon className="h-3.5 w-3.5 text-pink-400 shrink-0" />
+                  <a
+                    href={siteConfig.instagramUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-pink-400 transition"
+                  >
+                    Instagram
+                  </a>
+                </div>
+              )}
+
               {/* Contact Page Link */}
               <div className="pt-1">
                 <Link
@@ -235,12 +217,6 @@ export default function Footer() {
                   <ArrowRight className="h-3 w-3" />
                 </Link>
               </div>
-
-              {!hasAnyContactMethod && (
-                <p className="text-xs text-muted">
-                  Reach out through our online contact form for rapid assistance.
-                </p>
-              )}
             </div>
 
             {/* Newsletter Box */}
