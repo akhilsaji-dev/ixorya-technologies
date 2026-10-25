@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { services } from "@/data/services";
 import { courses } from "@/data/courses";
-import { site } from "@/lib/site";
+import { siteConfig, site, getWhatsAppUrl, getTelUrl, getMailtoUrl } from "@/config/site";
 import HeroShowcase from "@/components/home/HeroShowcase";
 import SolutionMatcher from "@/components/home/SolutionMatcher";
 import ContactForm from "@/components/contact/ContactForm";
@@ -28,6 +28,7 @@ import {
   Mail,
   Phone,
   Clock,
+  MessageCircle,
   type LucideIcon,
 } from "lucide-react";
 
@@ -690,40 +691,63 @@ export default function Home() {
               </h2>
 
               <p className="text-muted text-base leading-relaxed">
-                Whether you need high-impact software, scalable AI workflow automation, or want to master programming from the ground up, {site.name} is your partner from zero to beyond infinity.
+                Whether you need high-impact software, scalable AI workflow automation, or want to master programming from the ground up, {siteConfig.name} is your partner from zero to beyond infinity.
               </p>
 
-              {/* Direct Reach-Out Cards */}
+              {/* Direct Reach-Out Cards (Conditionally Rendered) */}
               <div className="space-y-3 pt-2">
-                <a
-                  href={`mailto:${site.email}`}
-                  className="flex items-center gap-4 rounded-xl border border-white/10 bg-dark/70 p-4 transition hover:border-cyan/40 hover:bg-dark group"
-                >
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-navy border border-white/10 text-cyan group-hover:border-cyan/30">
-                    <Mail className="h-5 w-5" />
-                  </div>
-                  <div className="overflow-hidden">
-                    <div className="text-xs text-muted">Email Us Directly</div>
-                    <div className="text-sm font-semibold text-silver group-hover:text-cyan transition truncate">
-                      {site.email}
+                {siteConfig.hasContactEmail && getMailtoUrl() && (
+                  <a
+                    href={getMailtoUrl()!}
+                    className="flex items-center gap-4 rounded-xl border border-white/10 bg-dark/70 p-4 transition hover:border-cyan/40 hover:bg-dark group"
+                  >
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-navy border border-white/10 text-cyan group-hover:border-cyan/30">
+                      <Mail className="h-5 w-5" />
                     </div>
-                  </div>
-                </a>
+                    <div className="overflow-hidden">
+                      <div className="text-xs text-muted">Email Us Directly</div>
+                      <div className="text-sm font-semibold text-silver group-hover:text-cyan transition truncate">
+                        {siteConfig.contactEmail}
+                      </div>
+                    </div>
+                  </a>
+                )}
 
-                <a
-                  href={`tel:${site.phone.replace(/\s+/g, "")}`}
-                  className="flex items-center gap-4 rounded-xl border border-white/10 bg-dark/70 p-4 transition hover:border-cyan/40 hover:bg-dark group"
-                >
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-navy border border-white/10 text-cyan group-hover:border-cyan/30">
-                    <Phone className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <div className="text-xs text-muted">Phone / WhatsApp</div>
-                    <div className="text-sm font-semibold text-silver group-hover:text-cyan transition">
-                      {site.phone}
+                {siteConfig.hasPhone && getTelUrl() && (
+                  <a
+                    href={getTelUrl()!}
+                    className="flex items-center gap-4 rounded-xl border border-white/10 bg-dark/70 p-4 transition hover:border-cyan/40 hover:bg-dark group"
+                  >
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-navy border border-white/10 text-cyan group-hover:border-cyan/30">
+                      <Phone className="h-5 w-5" />
                     </div>
-                  </div>
-                </a>
+                    <div>
+                      <div className="text-xs text-muted">Phone Call</div>
+                      <div className="text-sm font-semibold text-silver group-hover:text-cyan transition">
+                        {siteConfig.phone}
+                      </div>
+                    </div>
+                  </a>
+                )}
+
+                {siteConfig.hasWhatsApp && getWhatsAppUrl() && (
+                  <a
+                    href={getWhatsAppUrl()!}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-4 rounded-xl border border-emerald-500/20 bg-dark/70 p-4 transition hover:border-emerald-400/40 hover:bg-dark group"
+                  >
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-navy border border-white/10 text-emerald-400 group-hover:border-emerald-400/40">
+                      <MessageCircle className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <div className="text-xs text-muted">WhatsApp Message</div>
+                      <div className="text-sm font-semibold text-emerald-400 group-hover:underline transition">
+                        Chat directly with our team
+                      </div>
+                    </div>
+                  </a>
+                )}
 
                 <div className="flex items-center gap-4 rounded-xl border border-white/10 bg-dark/70 p-4">
                   <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-navy border border-white/10 text-cyan">

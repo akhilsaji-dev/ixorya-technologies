@@ -1,25 +1,29 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import ContactForm from "@/components/contact/ContactForm";
-import { site } from "@/lib/site";
+import { siteConfig, getWhatsAppUrl, getTelUrl, getMailtoUrl } from "@/config/site";
 import { 
   Mail, 
   Phone, 
-  MapPin, 
   Clock, 
   MessageSquare, 
   ArrowRight,
   ShieldCheck,
-  Sparkles
+  Sparkles,
+  MessageCircle
 } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Contact Us",
   description:
-    "Get in touch with Ixorya Technologies for custom software engineering, website development, AI automation, and Ixorya Academy course admissions.",
+    "Get in touch with Ixoria Technologies for custom software engineering, website development, AI automation, and Ixorya Academy course admissions.",
 };
 
 export default function Contact() {
+  const mailtoUrl = getMailtoUrl();
+  const telUrl = getTelUrl();
+  const whatsAppUrl = getWhatsAppUrl();
+
   return (
     <div className="relative min-h-screen py-16 sm:py-24 bg-grid-pattern">
       {/* Background ambient glow */}
@@ -48,55 +52,68 @@ export default function Contact() {
           <div className="lg:col-span-5 space-y-6">
             <div className="rounded-2xl border border-white/10 bg-dark/75 p-6 sm:p-8 backdrop-blur-md space-y-6">
               <div>
-                <h2 className="text-xl font-bold text-silver">Contact Details</h2>
+                <h2 className="text-xl font-bold text-silver">Contact Channels</h2>
                 <p className="mt-1 text-xs text-muted">
-                  Reach out directly via email, phone, or schedule an online technical consultation.
+                  Reach out directly via email, phone, WhatsApp, or submit the form for a fast technical response.
                 </p>
               </div>
 
               <div className="space-y-4 pt-2">
-                <a
-                  href={`mailto:${site.email}`}
-                  className="flex items-start gap-4 rounded-xl border border-white/10 bg-navy/80 p-4 transition hover:border-cyan/40 group"
-                >
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-dark border border-white/10 text-cyan group-hover:border-cyan/30">
-                    <Mail className="h-5 w-5" />
-                  </div>
-                  <div className="overflow-hidden">
-                    <div className="text-xs text-muted">Direct Email</div>
-                    <div className="text-sm font-semibold text-silver group-hover:text-cyan transition truncate">
-                      {site.email}
+                {/* Email (Hidden if missing) */}
+                {siteConfig.hasContactEmail && mailtoUrl && (
+                  <a
+                    href={mailtoUrl}
+                    className="flex items-start gap-4 rounded-xl border border-white/10 bg-navy/80 p-4 transition hover:border-cyan/40 group"
+                  >
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-dark border border-white/10 text-cyan group-hover:border-cyan/30">
+                      <Mail className="h-5 w-5" />
                     </div>
-                  </div>
-                </a>
+                    <div className="overflow-hidden">
+                      <div className="text-xs text-muted">Direct Email</div>
+                      <div className="text-sm font-semibold text-silver group-hover:text-cyan transition truncate">
+                        {siteConfig.contactEmail}
+                      </div>
+                    </div>
+                  </a>
+                )}
 
-                <a
-                  href={`tel:${site.phone.replace(/\s+/g, "")}`}
-                  className="flex items-start gap-4 rounded-xl border border-white/10 bg-navy/80 p-4 transition hover:border-cyan/40 group"
-                >
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-dark border border-white/10 text-cyan group-hover:border-cyan/30">
-                    <Phone className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <div className="text-xs text-muted">Phone / WhatsApp</div>
-                    <div className="text-sm font-semibold text-silver group-hover:text-cyan transition">
-                      {site.phone}
+                {/* Phone (Hidden if missing) */}
+                {siteConfig.hasPhone && telUrl && (
+                  <a
+                    href={telUrl}
+                    className="flex items-start gap-4 rounded-xl border border-white/10 bg-navy/80 p-4 transition hover:border-cyan/40 group"
+                  >
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-dark border border-white/10 text-cyan group-hover:border-cyan/30">
+                      <Phone className="h-5 w-5" />
                     </div>
-                  </div>
-                </a>
+                    <div>
+                      <div className="text-xs text-muted">Phone Call</div>
+                      <div className="text-sm font-semibold text-silver group-hover:text-cyan transition">
+                        {siteConfig.phone}
+                      </div>
+                    </div>
+                  </a>
+                )}
 
-                <div className="flex items-start gap-4 rounded-xl border border-white/10 bg-navy/80 p-4">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-dark border border-white/10 text-cyan">
-                    <MapPin className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <div className="text-xs text-muted">Location</div>
-                    <div className="text-sm font-semibold text-silver">
-                      {site.location}
+                {/* WhatsApp (Hidden if missing) */}
+                {siteConfig.hasWhatsApp && whatsAppUrl && (
+                  <a
+                    href={whatsAppUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-start gap-4 rounded-xl border border-emerald-500/20 bg-navy/80 p-4 transition hover:border-emerald-400 group"
+                  >
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-dark border border-white/10 text-emerald-400 group-hover:border-emerald-400/40">
+                      <MessageCircle className="h-5 w-5" />
                     </div>
-                    <div className="text-[11px] text-muted">Remote & Global Deployments</div>
-                  </div>
-                </div>
+                    <div>
+                      <div className="text-xs text-muted">WhatsApp Chat</div>
+                      <div className="text-sm font-semibold text-emerald-400 group-hover:underline transition">
+                        Chat directly with our team
+                      </div>
+                    </div>
+                  </a>
+                )}
 
                 <div className="flex items-start gap-4 rounded-xl border border-white/10 bg-navy/80 p-4">
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-dark border border-white/10 text-cyan">

@@ -2,16 +2,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 import { connection } from "next/server";
-import { site } from "@/lib/site";
+import { siteConfig, getWhatsAppUrl, getTelUrl, getMailtoUrl } from "@/config/site";
 import NewsletterForm from "./NewsletterForm";
 import { 
   Mail, 
   Phone, 
-  MapPin, 
   ArrowUpRight, 
-  Sparkles
+  Sparkles,
+  MessageCircle,
+  ArrowRight
 } from "lucide-react";
-import { GithubIcon, LinkedinIcon, TwitterIcon, InstagramIcon } from "./SocialIcons";
+import { GithubIcon, LinkedinIcon, TwitterIcon, InstagramIcon, WhatsAppIcon } from "./SocialIcons";
 
 async function Year() {
   await connection();
@@ -19,6 +20,13 @@ async function Year() {
 }
 
 export default function Footer() {
+  const mailtoUrl = getMailtoUrl();
+  const telUrl = getTelUrl();
+  const whatsAppUrl = getWhatsAppUrl();
+
+  const hasAnyContactMethod =
+    siteConfig.hasContactEmail || siteConfig.hasPhone || siteConfig.hasWhatsApp;
+
   return (
     <footer className="border-t border-white/10 bg-dark text-silver">
       {/* Upper Footer Grid */}
@@ -28,24 +36,24 @@ export default function Footer() {
           <div className="space-y-4 lg:col-span-4">
             <Link href="/" className="inline-flex items-center gap-3">
               <Image
-                src={site.symbol}
-                alt={`${site.short} symbol`}
+                src={siteConfig.symbol}
+                alt={`${siteConfig.shortName} symbol`}
                 width={36}
                 height={36}
                 className="rounded-full"
               />
               <span className="text-xl font-bold tracking-wide text-white">
-                {site.short.toUpperCase()}
+                {siteConfig.shortName.toUpperCase()}
               </span>
             </Link>
 
             <p className="max-w-sm text-sm text-muted leading-relaxed">
-              {site.description}
+              {siteConfig.description}
             </p>
 
             {/* Tagline */}
             <p className="text-xs font-semibold uppercase tracking-wider text-cyan">
-              {site.tagline}
+              {siteConfig.tagline}
             </p>
 
             {/* Availability status badge */}
@@ -54,10 +62,32 @@ export default function Footer() {
               <span>Available for new projects & admissions</span>
             </div>
 
-            {/* Social links */}
+            {/* Social links (Only show Instagram if configured, along with standard channels) */}
             <div className="flex items-center gap-3 pt-2">
+              {siteConfig.hasInstagram && siteConfig.instagramUrl && (
+                <a
+                  href={siteConfig.instagramUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="Instagram"
+                  className="rounded-lg border border-white/10 bg-navy/80 p-2 text-muted transition hover:border-cyan hover:text-white"
+                >
+                  <InstagramIcon className="h-4 w-4" />
+                </a>
+              )}
+              {siteConfig.hasWhatsApp && whatsAppUrl && (
+                <a
+                  href={whatsAppUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="WhatsApp"
+                  className="rounded-lg border border-white/10 bg-navy/80 p-2 text-muted transition hover:border-emerald-400 hover:text-emerald-400"
+                >
+                  <WhatsAppIcon className="h-4 w-4" />
+                </a>
+              )}
               <a
-                href={site.socials.github}
+                href="https://github.com"
                 target="_blank"
                 rel="noreferrer"
                 aria-label="GitHub"
@@ -66,7 +96,7 @@ export default function Footer() {
                 <GithubIcon className="h-4 w-4" />
               </a>
               <a
-                href={site.socials.linkedin}
+                href="https://linkedin.com"
                 target="_blank"
                 rel="noreferrer"
                 aria-label="LinkedIn"
@@ -75,22 +105,13 @@ export default function Footer() {
                 <LinkedinIcon className="h-4 w-4" />
               </a>
               <a
-                href={site.socials.twitter}
+                href="https://x.com"
                 target="_blank"
                 rel="noreferrer"
                 aria-label="Twitter / X"
                 className="rounded-lg border border-white/10 bg-navy/80 p-2 text-muted transition hover:border-cyan hover:text-white"
               >
                 <TwitterIcon className="h-4 w-4" />
-              </a>
-              <a
-                href={site.socials.instagram}
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Instagram"
-                className="rounded-lg border border-white/10 bg-navy/80 p-2 text-muted transition hover:border-cyan hover:text-white"
-              >
-                <InstagramIcon className="h-4 w-4" />
               </a>
             </div>
           </div>
@@ -170,23 +191,56 @@ export default function Footer() {
               Connect With Us
             </h3>
 
+            {/* Direct Contact Links (Hidden when values are missing) */}
             <div className="space-y-2.5 text-xs text-muted">
-              <div className="flex items-center gap-2.5">
-                <Mail className="h-3.5 w-3.5 text-cyan shrink-0" />
-                <a href={`mailto:${site.email}`} className="hover:text-cyan transition truncate">
-                  {site.email}
-                </a>
+              {siteConfig.hasContactEmail && mailtoUrl && (
+                <div className="flex items-center gap-2.5">
+                  <Mail className="h-3.5 w-3.5 text-cyan shrink-0" />
+                  <a href={mailtoUrl} className="hover:text-cyan transition truncate">
+                    {siteConfig.contactEmail}
+                  </a>
+                </div>
+              )}
+
+              {siteConfig.hasPhone && telUrl && (
+                <div className="flex items-center gap-2.5">
+                  <Phone className="h-3.5 w-3.5 text-cyan shrink-0" />
+                  <a href={telUrl} className="hover:text-cyan transition">
+                    {siteConfig.phone}
+                  </a>
+                </div>
+              )}
+
+              {siteConfig.hasWhatsApp && whatsAppUrl && (
+                <div className="flex items-center gap-2.5">
+                  <MessageCircle className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
+                  <a
+                    href={whatsAppUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-emerald-400 text-emerald-400/90 transition"
+                  >
+                    WhatsApp Chat
+                  </a>
+                </div>
+              )}
+
+              {/* Contact Page Link */}
+              <div className="pt-1">
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-cyan hover:underline"
+                >
+                  <span>Go to Contact Page</span>
+                  <ArrowRight className="h-3 w-3" />
+                </Link>
               </div>
-              <div className="flex items-center gap-2.5">
-                <Phone className="h-3.5 w-3.5 text-cyan shrink-0" />
-                <a href={`tel:${site.phone.replace(/\s+/g, "")}`} className="hover:text-cyan transition">
-                  {site.phone}
-                </a>
-              </div>
-              <div className="flex items-center gap-2.5">
-                <MapPin className="h-3.5 w-3.5 text-cyan shrink-0" />
-                <span>{site.location}</span>
-              </div>
+
+              {!hasAnyContactMethod && (
+                <p className="text-xs text-muted">
+                  Reach out through our online contact form for rapid assistance.
+                </p>
+              )}
             </div>
 
             {/* Newsletter Box */}
@@ -205,7 +259,7 @@ export default function Footer() {
       <div className="border-t border-white/10 bg-navy/80 py-5">
         <div className="mx-auto flex flex-col items-center justify-between gap-4 px-4 sm:flex-row sm:px-6 lg:px-8 max-w-7xl text-xs text-muted">
           <div>
-            © <Suspense fallback=""><Year /></Suspense> {site.name}. All rights reserved.
+            © <Suspense fallback=""><Year /></Suspense> {siteConfig.name}. All rights reserved.
           </div>
 
           <div className="flex items-center gap-5">
