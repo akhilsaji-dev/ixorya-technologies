@@ -20,7 +20,6 @@ import {
   Users,
   Workflow,
   Star,
-  ArrowUpRight,
   Terminal,
   Cpu,
   Monitor,
@@ -29,8 +28,11 @@ import {
   Phone,
   Clock,
   MessageCircle,
+  FolderGit2,
+  PhoneCall,
   type LucideIcon,
 } from "lucide-react";
+import { WhatsAppIcon } from "@/components/layout/SocialIcons";
 
 const btnPrimary =
   "inline-flex items-center justify-center gap-2 rounded-md bg-brand px-6 py-3 text-sm font-medium text-white shadow-lg shadow-blue-500/25 transition hover:bg-blue-500 hover:shadow-blue-500/40";
@@ -489,104 +491,234 @@ export default function Home() {
           IXORYA ACADEMY SPOTLIGHT & FEATURED COURSES
          ========================================================================= */}
       <section className="relative mx-auto w-full max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-        <div className="rounded-2xl border border-cyan/20 bg-gradient-to-b from-dark/90 to-navy p-8 sm:p-12 backdrop-blur-xl">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 pb-8 border-b border-white/10">
-            <div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-cyan/30 bg-cyan/10 px-3 py-1 text-xs font-semibold text-cyan">
-                <GraduationCap className="h-4 w-4" />
-                <span>Ixorya Academy Spotlight</span>
+        <div className="relative overflow-hidden rounded-3xl border border-cyan/30 bg-gradient-to-b from-dark/95 via-navy/90 to-dark p-6 sm:p-10 lg:p-12 backdrop-blur-2xl shadow-2xl">
+          {/* Subtle Ambient Glow */}
+          <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-cyan/15 blur-3xl -z-10" />
+          <div className="pointer-events-none absolute -left-24 -bottom-24 h-72 w-72 rounded-full bg-blue-600/15 blur-3xl -z-10" />
+
+          {/* Section Header */}
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 pb-8 border-b border-white/10">
+            <div className="space-y-3">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-cyan/30 bg-cyan/10 px-3.5 py-1 text-xs font-semibold text-cyan">
+                  <GraduationCap className="h-4 w-4" />
+                  <span>Ixorya Academy Spotlight</span>
+                </span>
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-400">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <span>Live Cohorts Enrolling</span>
+                </span>
               </div>
-              <h2 className="mt-3 text-3xl font-bold text-silver sm:text-4xl">
+
+              <h2 className="text-3xl font-extrabold text-white sm:text-4xl lg:text-5xl tracking-tight">
                 Your Coding Journey Starts Here.
               </h2>
-              <p className="mt-3 max-w-2xl text-muted text-sm sm:text-base">
-                From your very first line of code to building real-world software, {site.short} Academy helps kids, students, and beginners develop programming mastery step by step.
+
+              <p className="max-w-2xl text-muted text-sm sm:text-base leading-relaxed">
+                From playful computational logic for kids to Python automation, full-stack Next.js apps, and modern AI engineering. Guided by practicing software developers with live 1-on-1 code reviews.
               </p>
             </div>
-            <Link
-              href="/academy/courses"
-              className="inline-flex items-center gap-2 rounded-md bg-brand px-5 py-2.5 text-sm font-medium text-white transition hover:bg-blue-500 shrink-0 self-start md:self-end"
-            >
-              <span>Explore All Courses</span>
-              <ArrowRight className="h-4 w-4" />
-            </Link>
+
+            <div className="flex flex-wrap items-center gap-3 shrink-0">
+              <Link
+                href="/academy/courses"
+                className="inline-flex items-center gap-2 rounded-xl bg-brand px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-500/25 transition hover:bg-blue-500 hover:shadow-blue-500/40"
+              >
+                <span>Explore All 6 Programs</span>
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+
+              {siteConfig.hasWhatsApp && (
+                <a
+                  href={
+                    getWhatsAppUrl(
+                      "Hello Ixoria Academy, I would like to get academic guidance on which course matches my background."
+                    ) || "#"
+                  }
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 text-xs sm:text-sm font-medium text-emerald-400 hover:bg-emerald-500/20 transition"
+                >
+                  <WhatsAppIcon className="h-4 w-4" />
+                  <span className="hidden sm:inline">WhatsApp Counseling</span>
+                  <span className="sm:hidden">Counseling</span>
+                </a>
+              )}
+            </div>
           </div>
 
-          {/* Courses Grid */}
-          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {courses.map((course) => (
-              <article
-                key={course.slug}
-                className="flex flex-col justify-between rounded-xl border border-white/10 bg-navy/80 p-5 transition hover:border-cyan/40 hover:bg-navy"
-              >
-                <div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-medium text-cyan bg-cyan/10 px-2 py-0.5 rounded border border-cyan/20">
-                      {course.audience}
-                    </span>
-                    {course.beginnerFriendly && (
-                      <span className="text-[11px] text-emerald-400 font-medium">
-                        Beginner
-                      </span>
+          {/* Symmetrical 3-Column Courses Grid (2 rows x 3 columns = 6 balanced cards) */}
+          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {courses.map((course) => {
+              const whatsAppCourseUrl = getWhatsAppUrl(
+                `Hello Ixoria Academy, I would like to inquire about batch dates and syllabus for the '${course.title}' course.`
+              );
+
+              return (
+                <article
+                  key={course.slug}
+                  className="group relative flex flex-col justify-between rounded-2xl border border-white/10 bg-navy/80 p-5 sm:p-6 transition-all duration-300 hover:border-cyan/40 hover:bg-navy hover:shadow-xl hover:shadow-cyan/5"
+                >
+                  <div className="space-y-3.5">
+                    {/* Card Badges: Category badge, Level, Duration */}
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <div className="flex items-center gap-1.5">
+                        <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-cyan bg-cyan/10 px-2.5 py-0.5 rounded-full border border-cyan/20">
+                          <Sparkles className="h-3 w-3" />
+                          <span>{course.badge}</span>
+                        </span>
+                        <span className="text-[11px] text-silver/80 font-medium bg-dark/80 px-2 py-0.5 rounded-full border border-white/5">
+                          {course.level}
+                        </span>
+                      </div>
+
+                      <div className="inline-flex items-center gap-1 text-[11px] text-muted font-mono">
+                        <Clock className="h-3 w-3 text-cyan" />
+                        <span>{course.duration.split("·")[0].trim()}</span>
+                      </div>
+                    </div>
+
+                    {/* Course Title & Subtitle */}
+                    <div>
+                      <h3 className="text-lg font-bold text-white group-hover:text-cyan transition-colors">
+                        <Link href={`/academy/courses/${course.slug}`}>
+                          {course.title}
+                        </Link>
+                      </h3>
+                      <p className="mt-1 text-xs text-muted leading-relaxed line-clamp-2">
+                        {course.subtitle || course.description}
+                      </p>
+                    </div>
+
+                    {/* Capstone Project Showcase Box */}
+                    {course.projects && course.projects.length > 0 && (
+                      <div className="rounded-xl border border-white/5 bg-dark/60 p-3 text-xs space-y-1">
+                        <div className="flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-wider text-cyan font-semibold">
+                          <FolderGit2 className="h-3 w-3" />
+                          <span>Capstone Project You Build:</span>
+                        </div>
+                        <div className="font-semibold text-silver line-clamp-1">
+                          {course.projects[0].title}
+                        </div>
+                        <p className="text-[11px] text-muted/90 line-clamp-1">
+                          {course.projects[0].description}
+                        </p>
+                      </div>
+                    )}
+
+                    {/* Key Topics Tags */}
+                    <div className="space-y-1.5">
+                      <div className="text-[10px] font-mono uppercase tracking-wider text-muted">
+                        Core Concepts Covered:
+                      </div>
+                      <div className="flex flex-wrap gap-1">
+                        {course.topics.slice(0, 3).map((topic) => (
+                          <span
+                            key={topic}
+                            className="rounded bg-dark px-2 py-0.5 text-[11px] text-silver/80 border border-white/5"
+                          >
+                            {topic}
+                          </span>
+                        ))}
+                        {course.topics.length > 3 && (
+                          <span className="rounded bg-dark px-2 py-0.5 text-[11px] text-muted border border-white/5">
+                            +{course.topics.length - 3} more
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Card Bottom CTA Footer */}
+                  <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between gap-2">
+                    <Link
+                      href={`/academy/courses/${course.slug}`}
+                      className="inline-flex items-center gap-1 text-xs font-semibold text-cyan hover:underline group-hover:text-white transition"
+                    >
+                      <span>View Full Curriculum</span>
+                      <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+                    </Link>
+
+                    {whatsAppCourseUrl && (
+                      <a
+                        href={whatsAppCourseUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-1.5 text-[11px] font-medium text-emerald-400 hover:bg-emerald-500/20 transition"
+                        title={`Quick WhatsApp inquiry for ${course.title}`}
+                      >
+                        <WhatsAppIcon className="h-3 w-3" />
+                        <span>Inquire</span>
+                      </a>
                     )}
                   </div>
-
-                  <h3 className="mt-4 text-lg font-semibold text-silver">
-                    {course.title}
-                  </h3>
-
-                  <p className="mt-2 text-xs text-muted leading-relaxed">
-                    {course.description}
-                  </p>
-
-                  <div className="mt-4 space-y-1.5">
-                    <div className="text-[11px] uppercase tracking-wider text-muted font-semibold">
-                      Key Topics:
-                    </div>
-                    <ul className="flex flex-wrap gap-1">
-                      {course.topics.slice(0, 3).map((topic) => (
-                        <li
-                          key={topic}
-                          className="rounded bg-dark px-2 py-0.5 text-[11px] text-silver/80 border border-white/5"
-                        >
-                          {topic}
-                        </li>
-                      ))}
-                      {course.topics.length > 3 && (
-                        <li className="rounded bg-dark px-2 py-0.5 text-[11px] text-muted border border-white/5">
-                          +{course.topics.length - 3} more
-                        </li>
-                      )}
-                    </ul>
-                  </div>
-                </div>
-
-                <div className="mt-6 pt-3 border-t border-white/10">
-                  <Link
-                    href={`/academy/courses/${course.slug}`}
-                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-cyan hover:underline"
-                  >
-                    <span>View Curriculum Details</span>
-                    <ArrowUpRight className="h-3.5 w-3.5" />
-                  </Link>
-                </div>
-              </article>
-            ))}
+                </article>
+              );
+            })}
           </div>
 
-          {/* Academy Learning Highlights Strip */}
-          <div className="mt-10 grid gap-4 sm:grid-cols-3 pt-6 border-t border-white/10 text-xs text-muted">
-            <div className="flex items-center gap-2">
+          {/* Academy Learning Highlights Strip (4 Pillars) */}
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 pt-8 border-t border-white/10 text-xs">
+            <div className="flex items-center gap-2.5 text-silver/90">
               <CheckCircle2 className="h-4 w-4 text-cyan shrink-0" />
-              <span>Personalized mentor feedback on every project</span>
+              <span>100% Live Interactive Cohorts</span>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2.5 text-silver/90">
               <CheckCircle2 className="h-4 w-4 text-cyan shrink-0" />
-              <span>Zero setup headaches — guided coding environments</span>
+              <span>Max 6–8 Students for 1:1 Attention</span>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2.5 text-silver/90">
               <CheckCircle2 className="h-4 w-4 text-cyan shrink-0" />
-              <span>Real portfolio projects to showcase skills</span>
+              <span>Real GitHub Portfolios & PR Reviews</span>
+            </div>
+            <div className="flex items-center gap-2.5 text-silver/90">
+              <CheckCircle2 className="h-4 w-4 text-cyan shrink-0" />
+              <span>Verified Certificate of Completion</span>
+            </div>
+          </div>
+
+          {/* Academic Consultation Quick Ribbon */}
+          <div className="mt-8 rounded-2xl border border-white/10 bg-navy/60 p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-3 text-center sm:text-left">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-cyan/10 border border-cyan/20 text-cyan">
+                <GraduationCap className="h-5 w-5" />
+              </div>
+              <div>
+                <div className="text-sm font-bold text-white">
+                  Not sure which program matches your level?
+                </div>
+                <div className="text-xs text-muted">
+                  Get a free 15-minute counseling session with a senior engineering mentor.
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2.5 shrink-0">
+              {siteConfig.hasPhone && (
+                <a
+                  href={getTelUrl() || `tel:${siteConfig.phone}`}
+                  className="inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-dark px-3.5 py-2 text-xs font-medium text-silver hover:border-cyan hover:text-white transition"
+                >
+                  <PhoneCall className="h-3.5 w-3.5 text-cyan" />
+                  <span>Call {siteConfig.phone}</span>
+                </a>
+              )}
+
+              {siteConfig.hasWhatsApp && (
+                <a
+                  href={
+                    getWhatsAppUrl(
+                      "Hello Ixoria Academy, I would like to talk to an academic counselor about course options."
+                    ) || "#"
+                  }
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-600 px-3.5 py-2 text-xs font-semibold text-white shadow-md shadow-emerald-600/30 hover:bg-emerald-500 transition"
+                >
+                  <WhatsAppIcon className="h-3.5 w-3.5" />
+                  <span>WhatsApp Chat</span>
+                </a>
+              )}
             </div>
           </div>
         </div>
