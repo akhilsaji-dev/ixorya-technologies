@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { courses } from "@/data/courses";
-import CourseCurriculumAccordion from "@/components/academy/CourseCurriculumAccordion";
-import AcademyFAQ from "@/components/academy/AcademyFAQ";
 import ContactForm from "@/components/contact/ContactForm";
 import { siteConfig, getWhatsAppUrl, getTelUrl } from "@/config/site";
 import {
@@ -14,13 +12,10 @@ import {
   Users,
   Calendar,
   CheckCircle2,
-  FolderGit2,
-  Terminal,
   Award,
   ShieldCheck,
-  Zap,
   PhoneCall,
-  Code2,
+  BookOpen,
 } from "lucide-react";
 import { WhatsAppIcon } from "@/components/layout/SocialIcons";
 
@@ -191,109 +186,27 @@ export default async function CourseDetailPage({ params }: Props) {
         <div className="grid gap-10 lg:grid-cols-12 lg:items-start">
           {/* Left Column: Comprehensive Course Details (8 cols) */}
           <div className="lg:col-span-8 space-y-12">
-            {/* Learning Outcomes Section */}
-            <section aria-labelledby="outcomes-heading" className="space-y-4">
-              <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-cyan">
-                <Zap className="h-4 w-4" />
-                <span>Learning Objectives</span>
-              </div>
-              <h2 id="outcomes-heading" className="text-2xl font-bold text-white tracking-tight">
-                What You Will Master & Take Away
-              </h2>
+            {/* Core Topics Covered */}
+            {course.topics && course.topics.length > 0 && (
+              <section aria-labelledby="topics-heading" className="space-y-4">
+                <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-cyan">
+                  <BookOpen className="h-4 w-4" />
+                  <span>Key Subject Areas</span>
+                </div>
+                <h2 id="topics-heading" className="text-2xl font-bold text-white tracking-tight">
+                  Core Topics Covered
+                </h2>
 
-              <div className="grid gap-3 sm:grid-cols-2 rounded-3xl border border-white/10 bg-dark/70 p-6 backdrop-blur-md">
-                {course.outcomes.map((outcome, idx) => (
-                  <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-silver/90 leading-relaxed">
-                    <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
-                    <span>{outcome}</span>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            {/* Curriculum Breakdown Accordion */}
-            <section aria-labelledby="curriculum-heading" className="space-y-4">
-              <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-cyan">
-                <Terminal className="h-4 w-4" />
-                <span>Full Syllabus Breakdown</span>
-              </div>
-              <h2 id="curriculum-heading" className="text-2xl font-bold text-white tracking-tight">
-                Detailed Week-by-Week Curriculum
-              </h2>
-              <p className="text-sm text-muted">
-                Each module includes live theoretical mental models, guided pair-programming labs, and code reviews.
-              </p>
-
-              <CourseCurriculumAccordion curriculum={course.curriculum} />
-            </section>
-
-            {/* Capstone Projects Showcase */}
-            <section aria-labelledby="projects-heading" className="space-y-4">
-              <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-cyan">
-                <FolderGit2 className="h-4 w-4" />
-                <span>Portfolio Building</span>
-              </div>
-              <h2 id="projects-heading" className="text-2xl font-bold text-white tracking-tight">
-                Real Projects You Will Build & Deploy
-              </h2>
-              <p className="text-sm text-muted">
-                Every project is designed to be published on GitHub and added to your personal portfolio.
-              </p>
-
-              <div className="grid gap-4 sm:grid-cols-2">
-                {course.projects.map((proj, idx) => (
-                  <div
-                    key={idx}
-                    className="flex flex-col justify-between rounded-2xl border border-white/10 bg-dark/75 p-5 space-y-4 transition hover:border-cyan/30"
-                  >
-                    <div>
-                      <span className="text-[10px] font-mono uppercase tracking-wider text-cyan">
-                        Project 0{idx + 1}
-                      </span>
-                      <h3 className="mt-1 text-base font-bold text-white">
-                        {proj.title}
-                      </h3>
-                      <p className="mt-2 text-xs text-muted leading-relaxed">
-                        {proj.description}
-                      </p>
+                <div className="grid gap-3 sm:grid-cols-2 rounded-3xl border border-white/10 bg-dark/70 p-6 backdrop-blur-md">
+                  {course.topics.map((topic, idx) => (
+                    <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-silver/90 leading-relaxed">
+                      <CheckCircle2 className="h-4 w-4 text-cyan shrink-0 mt-0.5" />
+                      <span>{topic}</span>
                     </div>
-
-                    <div className="flex flex-wrap gap-1.5 pt-3 border-t border-white/5">
-                      {proj.technologies.map((t) => (
-                        <span
-                          key={t}
-                          className="rounded bg-navy/80 px-2 py-0.5 text-[10px] font-mono text-silver/80 border border-white/5"
-                        >
-                          {t}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            {/* Tools & Tech Stack */}
-            <section aria-labelledby="tools-heading" className="space-y-4">
-              <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-cyan">
-                <Code2 className="h-4 w-4" />
-                <span>Professional Toolchain</span>
-              </div>
-              <h2 id="tools-heading" className="text-xl font-bold text-white tracking-tight">
-                Tools & Technologies You Will Learn
-              </h2>
-
-              <div className="flex flex-wrap gap-2 rounded-2xl border border-white/10 bg-navy/60 p-5">
-                {course.toolsAndTech.map((tool) => (
-                  <span
-                    key={tool}
-                    className="rounded-xl border border-white/10 bg-dark px-3.5 py-1.5 text-xs font-mono font-medium text-silver"
-                  >
-                    {tool}
-                  </span>
-                ))}
-              </div>
-            </section>
+                  ))}
+                </div>
+              </section>
+            )}
 
             {/* Audience & Prerequisites */}
             <section aria-labelledby="prereqs-heading" className="space-y-4">
@@ -320,14 +233,27 @@ export default async function CourseDetailPage({ params }: Props) {
               </div>
             </section>
 
-            {/* Course Specific FAQs */}
-            {course.faqs && course.faqs.length > 0 && (
-              <section aria-labelledby="course-faq-heading" className="pt-4">
-                <AcademyFAQ
-                  faqs={course.faqs}
-                  title={`Questions About ${course.title}`}
-                  subtitle="Common inquiries from prospective students and parents about this specific program."
-                />
+            {/* Program Highlights */}
+            {course.keyHighlights && course.keyHighlights.length > 0 && (
+              <section aria-labelledby="highlights-heading" className="space-y-4">
+                <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-cyan">
+                  <Sparkles className="h-4 w-4" />
+                  <span>Program Highlights</span>
+                </div>
+                <h2 id="highlights-heading" className="text-xl font-bold text-white tracking-tight">
+                  What Sets This Program Apart
+                </h2>
+
+                <div className="rounded-2xl border border-white/10 bg-dark/70 p-6 space-y-3.5">
+                  {course.keyHighlights.map((highlight, idx) => (
+                    <div key={idx} className="flex items-start gap-3 text-xs sm:text-sm text-silver/90">
+                      <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-cyan/10 text-cyan text-[11px] font-bold">
+                        {idx + 1}
+                      </span>
+                      <span className="leading-relaxed">{highlight}</span>
+                    </div>
+                  ))}
+                </div>
               </section>
             )}
           </div>
