@@ -12,8 +12,6 @@ import {
   Users,
   Calendar,
   CheckCircle2,
-  Award,
-  ShieldCheck,
   PhoneCall,
   BookOpen,
 } from "lucide-react";
@@ -151,10 +149,10 @@ export default async function CourseDetailPage({ params }: Props) {
 
             <div className="rounded-2xl border border-white/5 bg-navy/60 p-3.5">
               <div className="flex items-center gap-2 text-cyan font-semibold">
-                <Award className="h-4 w-4" />
-                <span>Credential</span>
+                <Sparkles className="h-4 w-4" />
+                <span>Delivery</span>
               </div>
-              <div className="mt-1 font-bold text-silver text-sm">Verified Certificate</div>
+              <div className="mt-1 font-bold text-silver text-sm">100% Live Online</div>
             </div>
           </div>
 
@@ -207,55 +205,6 @@ export default async function CourseDetailPage({ params }: Props) {
                 </div>
               </section>
             )}
-
-            {/* Audience & Prerequisites */}
-            <section aria-labelledby="prereqs-heading" className="space-y-4">
-              <div className="grid gap-4 sm:grid-cols-2">
-                <div className="rounded-2xl border border-white/10 bg-dark/70 p-5 space-y-2">
-                  <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                    <Users className="h-4 w-4 text-cyan" />
-                    <span>Target Audience</span>
-                  </h3>
-                  <p className="text-xs text-muted leading-relaxed">
-                    {course.audience}
-                  </p>
-                </div>
-
-                <div className="rounded-2xl border border-white/10 bg-dark/70 p-5 space-y-2">
-                  <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                    <ShieldCheck className="h-4 w-4 text-cyan" />
-                    <span>Prerequisites</span>
-                  </h3>
-                  <p className="text-xs text-muted leading-relaxed">
-                    {course.prerequisites}
-                  </p>
-                </div>
-              </div>
-            </section>
-
-            {/* Program Highlights */}
-            {course.keyHighlights && course.keyHighlights.length > 0 && (
-              <section aria-labelledby="highlights-heading" className="space-y-4">
-                <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-cyan">
-                  <Sparkles className="h-4 w-4" />
-                  <span>Program Highlights</span>
-                </div>
-                <h2 id="highlights-heading" className="text-xl font-bold text-white tracking-tight">
-                  What Sets This Program Apart
-                </h2>
-
-                <div className="rounded-2xl border border-white/10 bg-dark/70 p-6 space-y-3.5">
-                  {course.keyHighlights.map((highlight, idx) => (
-                    <div key={idx} className="flex items-start gap-3 text-xs sm:text-sm text-silver/90">
-                      <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-cyan/10 text-cyan text-[11px] font-bold">
-                        {idx + 1}
-                      </span>
-                      <span className="leading-relaxed">{highlight}</span>
-                    </div>
-                  ))}
-                </div>
-              </section>
-            )}
           </div>
 
           {/* Right Column: Sticky Enrollment & Summary Card (4 cols) */}
@@ -302,38 +251,7 @@ export default async function CourseDetailPage({ params }: Props) {
                 )}
               </div>
 
-              {/* Inclusions Checklist */}
-              <div className="pt-4 border-t border-white/10 space-y-2.5">
-                <div className="text-[11px] font-semibold uppercase tracking-wider text-muted">
-                  What Every Student Receives:
-                </div>
-                <ul className="space-y-2 text-xs text-silver/90">
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="h-3.5 w-3.5 text-cyan shrink-0" />
-                    <span>100% Live interactive cohorts</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="h-3.5 w-3.5 text-cyan shrink-0" />
-                    <span>1-on-1 GitHub code reviews</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="h-3.5 w-3.5 text-cyan shrink-0" />
-                    <span>Direct WhatsApp mentor channel</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="h-3.5 w-3.5 text-cyan shrink-0" />
-                    <span>3–4 Deployed portfolio apps</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="h-3.5 w-3.5 text-cyan shrink-0" />
-                    <span>Verified completion certificate</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="h-3.5 w-3.5 text-cyan shrink-0" />
-                    <span>Lifetime recording access</span>
-                  </li>
-                </ul>
-              </div>
+
 
               {/* Direct Counselor Phone */}
               {siteConfig.hasPhone && telUrl && (
@@ -381,7 +299,7 @@ export default async function CourseDetailPage({ params }: Props) {
             <div className="grid gap-10 lg:grid-cols-12 lg:items-center">
               <div className="lg:col-span-5 space-y-5">
                 <div className="inline-flex items-center gap-2 rounded-full border border-cyan/30 bg-cyan/10 px-3.5 py-1 text-xs font-semibold text-cyan">
-                  <Award className="h-4 w-4" />
+                  <Sparkles className="h-4 w-4" />
                   <span>Direct Enrollment Inquiry</span>
                 </div>
 

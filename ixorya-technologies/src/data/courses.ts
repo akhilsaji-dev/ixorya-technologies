@@ -71,7 +71,7 @@ export const courses: Course[] = [
       "No boring syntax — visual drag-and-drop block coding first",
       "Max 6 students per batch for warm, attentive mentor focus",
       "Publish 3 playable mini-games to share with family & friends",
-      "Graduation showcase with verified Junior Coder Certificate",
+      "Graduation showcase with live project presentations to parents",
     ],
     toolsAndTech: ["Scratch 3.0", "Blockly", "Visual Logic Simulators", "Kid-Friendly Code Editors"],
     outcomes: [
@@ -156,7 +156,7 @@ export const courses: Course[] = [
           "Playtesting and bug fixing with classmates and mentor",
           "Adding bonus items, secret easter eggs, and victory fanfare",
           "Publishing the game online to the Scratch Community",
-          "Junior Coder Demo Day presentation and certificate awarding",
+          "Junior Coder Demo Day presentation and project showcase",
         ],
         handsOnLab: "Present your finished game live to parents and peers on Demo Day!",
       },

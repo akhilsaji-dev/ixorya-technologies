@@ -673,7 +673,7 @@ export default function Home() {
             </div>
             <div className="flex items-center gap-2.5 text-silver/90">
               <CheckCircle2 className="h-4 w-4 text-cyan shrink-0" />
-              <span>Verified Certificate of Completion</span>
+              <span>Dedicated 1:1 Mentor Guidance</span>
             </div>
           </div>
 

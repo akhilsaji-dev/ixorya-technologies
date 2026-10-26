@@ -80,9 +80,9 @@ const pedagogySteps = [
   },
   {
     step: "04",
-    title: "1:1 Code Reviews & Certification",
+    title: "1:1 Code Reviews & Deployment",
     description:
-      "Our engineers review your pull requests on GitHub. After polishing and deploying live, you receive verified Ixoria Academy certification.",
+      "Our engineers review your pull requests on GitHub. After polishing, you deploy your production projects live to the web.",
   },
 ];
 
@@ -113,9 +113,9 @@ const academyGeneralFaqs = [
       "Every batch has a private WhatsApp channel where you can paste code snippets, share error messages, and get help directly from your mentor between classes. We also schedule 1-on-1 code review sessions before project submission.",
   },
   {
-    question: "Will I receive a certificate upon course completion?",
+    question: "Will I get help with project deployments and GitHub?",
     answer:
-      "Yes! Upon successfully completing the curriculum and submitting your capstone projects, you receive a verified, shareable Ixoria Academy Certificate of Completion that you can showcase on LinkedIn and in your job portfolio.",
+      "Yes! Every student receives hands-on guidance pushing clean code to GitHub and deploying responsive apps live on platforms like Vercel and GitHub Pages.",
   },
 ];
 
