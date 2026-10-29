@@ -16,7 +16,7 @@ import {
 export const metadata: Metadata = {
   title: "Contact Us",
   description:
-    "Get in touch with Ixoria Technologies for custom software engineering, website development, AI automation, and Ixorya Academy course admissions.",
+    "Get in touch with Ixorya Technologies for custom software engineering, website development, AI automation, and Ixorya Academy course admissions.",
 };
 
 export default function Contact() {

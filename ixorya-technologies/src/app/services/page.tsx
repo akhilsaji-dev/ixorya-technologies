@@ -18,7 +18,7 @@ import {
 export const metadata: Metadata = {
   title: "Services & Engineering Solutions",
   description:
-    "Explore Ixoria Technologies' custom software development, modern website engineering, AI automation pipelines, and enterprise digital solutions.",
+    "Explore Ixorya Technologies' custom software development, modern website engineering, AI automation pipelines, and enterprise digital solutions.",
 };
 
 const processSteps = [

@@ -32,7 +32,7 @@ function getPhoneDigits(phone: string | undefined): string {
   return phone.replace(/[^\d+]/g, "").replace(/\D/g, "");
 }
 
-const rawName = process.env.NEXT_PUBLIC_SITE_NAME || "Ixoria Technologies";
+const rawName = process.env.NEXT_PUBLIC_SITE_NAME || "Ixorya Technologies";
 const rawInstagram = process.env.NEXT_PUBLIC_INSTAGRAM_URL || "";
 const rawPhone = process.env.NEXT_PUBLIC_CONTACT_PHONE || "";
 const rawWhatsApp = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "";
@@ -48,10 +48,10 @@ const isWhatsAppComplete = whatsAppDigits.length >= 10;
 
 export const siteConfig: SiteConfig = {
   name: rawName,
-  shortName: "Ixoria",
+  shortName: "Ixorya",
   tagline: "From Zero. Beyond Infinity.",
   description:
-    "Ixoria Technologies builds software, modern websites and AI automation, and teaches programming through Ixorya Academy.",
+    "Ixorya Technologies builds software, modern websites and AI automation, and teaches programming through Ixorya Academy.",
   url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
   logo: "/images/ixorya-logo.jpeg",
   symbol: "/images/ixorya-symbol.jpeg",
@@ -72,7 +72,7 @@ export const siteConfig: SiteConfig = {
  * Returns null if the number is incomplete or missing.
  */
 export function getWhatsAppUrl(
-  prefilledText: string = "Hello Ixoria Technologies, I would like to enquire about your services."
+  prefilledText: string = "Hello Ixorya Technologies, I would like to enquire about your services."
 ): string | null {
   if (!siteConfig.hasWhatsApp) return null;
 
@@ -110,7 +110,7 @@ export function getTelUrl(): string | null {
  * Generate a mailto: URL
  * Returns null if the contact email is missing or invalid
  */
-export function getMailtoUrl(subject: string = "Enquiry - Ixoria Technologies"): string | null {
+export function getMailtoUrl(subject: string = "Enquiry - Ixorya Technologies"): string | null {
   if (!siteConfig.hasContactEmail) return null;
   return `mailto:${siteConfig.contactEmail}?subject=${encodeURIComponent(subject)}`;
 }
